@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Handle scroll to make navbar more solid
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -20,108 +16,123 @@ const Navbar = () => {
   const navLinks = [
     { label: 'Home', id: 'home' },
     { label: 'About', id: 'about' },
-    { label: 'Skills', id: 'skills' },
+    { label: 'Services', id: 'skills' },
     { label: 'Projects', id: 'projects' },
-    { label: 'Contact', id: 'contact' },
   ];
 
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    setIsOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
-    <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 mix-blend-difference ${
-        isOpen 
-          ? 'bg-[#0a0a0a] py-4'
-          : isScrolled 
-            ? 'bg-transparent py-4' 
-            : 'bg-transparent py-6'
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        isScrolled ? 'py-4' : 'py-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-        
-        {/* Left Side: Logo/Name */}
-        <div className="flex items-center">
-          <a href="#" className="text-white text-2xl font-black tracking-tight">
-            Adarsh<span className="text-white/50">.</span>
-          </a>
-        </div>
-
-        {/* Center: Desktop Menu Links */}
-        <div className="hidden md:flex space-x-8">
-          {navLinks.map(({ label, id }) => (
-            <a 
-              key={id} 
-              href={`#${id}`}
-              onClick={e => {
-                e.preventDefault();
-                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="text-white/80 hover:text-white font-medium relative group transition-colors duration-300"
-            >
-              {label}
-              {/* Smooth hover underline */}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-center w-full">
+        <div className={`flex justify-between items-center w-full rounded-full transition-all duration-500 ${
+          isScrolled ? 'glass px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)]' : 'bg-transparent px-0 py-0'
+        }`}>
+          
+          {/* Logo */}
+          <div className="flex items-center">
+            <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="text-white text-xl font-black tracking-tighter flex items-center gap-1 group">
+              ADARSH<span className="w-2 h-2 rounded-full bg-cyan-400 group-hover:scale-150 transition-transform"></span>
             </a>
-          ))}
-        </div>
+          </div>
 
-        {/* Right Side: CTA Button */}
-        <div className="hidden md:block">
-          <a 
-            href="#contact" 
-            className="px-6 py-2.5 rounded-full bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all duration-300 backdrop-blur-md"
-          >
-            Hire Me
-          </a>
-        </div>
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center space-x-1">
+            {navLinks.map(({ label, id }) => (
+              <a 
+                key={id} 
+                href={`#${id}`}
+                onClick={e => scrollToSection(e, id)}
+                className="px-4 py-2 text-sm text-gray-300 hover:text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
 
-        {/* Mobile Hamburger Menu Icon */}
-        <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white focus:outline-none p-2"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <div 
-        className={`md:hidden absolute top-full left-0 w-full transition-all duration-300 overflow-hidden ${
-          isOpen ? 'max-h-96 py-4 opacity-100 bg-[#0a0a0a] shadow-2xl' : 'max-h-0 opacity-0 bg-transparent'
-        }`}
-      >
-        <div className="flex flex-col px-6 space-y-4">
-          {navLinks.map(({ label, id }) => (
+          {/* Desktop CTA */}
+          <div className="hidden md:block">
             <a 
-              key={id} 
-              href={`#${id}`}
-              onClick={e => {
-                e.preventDefault();
-                setIsOpen(false);
-                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="text-white hover:text-black font-bold text-lg border-b border-white/20 pb-2 transition-colors"
+              href="#contact" 
+              onClick={e => scrollToSection(e, 'contact')}
+              className="px-6 py-2.5 rounded-full bg-white text-black font-semibold hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] text-sm"
             >
-              {label}
+              Let's Talk
             </a>
-          ))}
-          <div className="pt-4 pb-2">
-             <a 
-               href="#contact" 
-               onClick={() => setIsOpen(false)} 
-               className="inline-block px-6 py-3 rounded-full bg-white text-black font-black hover:bg-gray-300 transition-colors w-full text-center shadow-lg"
-             >
-               Hire Me
-             </a>
+          </div>
+
+          {/* Mobile Toggle */}
+          <div className="md:hidden flex items-center">
+            <button 
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-white focus:outline-none p-2 relative z-[60]"
+            >
+              <div className="flex flex-col gap-1.5 w-6">
+                <span className={`h-0.5 bg-white transition-transform duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                <span className={`h-0.5 bg-white transition-opacity duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`h-0.5 bg-white transition-transform duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+              </div>
+            </button>
           </div>
         </div>
       </div>
-    </nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="absolute top-full left-0 w-full px-6 mt-2 md:hidden"
+          >
+            <div className="glass-card rounded-3xl p-6 flex flex-col space-y-4 shadow-2xl">
+              {navLinks.map(({ label, id }) => (
+                <a 
+                  key={id} 
+                  href={`#${id}`}
+                  onClick={e => scrollToSection(e, id)}
+                  className="text-gray-300 hover:text-white font-medium text-lg border-b border-white/10 pb-4 transition-colors"
+                >
+                  {label}
+                </a>
+              ))}
+              <a 
+                href="#contact" 
+                onClick={e => scrollToSection(e, 'contact')}
+                className="w-full py-4 mt-2 rounded-2xl bg-white text-black text-center font-bold shadow-lg"
+              >
+                Let's Talk
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 

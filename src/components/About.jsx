@@ -1,108 +1,142 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { FaMeta, FaInstagram, FaFacebook, FaGoogle } from 'react-icons/fa6';
 import { SiOpenai } from 'react-icons/si';
-import { Bot, Rocket, Code, Swords, Brain } from 'lucide-react';
+import { Bot, Rocket, Code, Swords, Brain, MapPin, Mail, ArrowUpRight } from 'lucide-react';
+
 const About = () => {
   return (
-    <section id="about" className="bg-gradient-to-br from-[#0b1021] via-[#161a33] to-[#281a3a] pt-20 pb-40 px-6 md:px-12 w-full relative overflow-hidden font-sans">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start">
+    <section id="about" className="bg-[#09090b] py-32 px-6 md:px-12 w-full relative overflow-hidden font-sans">
+      <div className="max-w-7xl mx-auto">
         
-        {/* Left Side: ID Badge and Skills */}
-        <div className="flex flex-col items-center w-full md:w-[350px] shrink-0 mt-12 md:mt-0">
+        {/* Section Header */}
+        <div className="mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 border-white/10"
+          >
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span className="text-sm font-medium tracking-wide text-gray-300 uppercase">About Me</span>
+          </motion.div>
           
-          <div data-aos="drop-bounce" className="relative flex justify-center w-full">
-            {/* Lanyard string */}
-            <div className="absolute -top-32 left-1/2 w-3 h-40 bg-black transform -translate-x-1/2 shadow-inner z-0"></div>
-            {/* Lanyard clip */}
-            <div className="absolute -top-6 left-1/2 w-6 h-12 bg-gray-300 rounded border border-gray-400 transform -translate-x-1/2 z-10 shadow-[0_2px_10px_rgba(0,0,0,0.3)]"></div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight max-w-2xl"
+          >
+            A Passionate Creator from <span className="text-gradient">Indore.</span>
+          </motion.h2>
+        </div>
+
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[auto]">
+          
+          {/* Main Intro Card */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="md:col-span-2 glass-card rounded-[2rem] p-8 md:p-12 relative overflow-hidden group border-white/5 hover:border-white/20 transition-colors"
+          >
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-purple-500/10 to-transparent rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
             
-            {/* Badge Card */}
-            <div className="bg-gray-900 w-full max-w-[280px] rounded-2xl p-3 shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative z-20 transform -rotate-3 hover:rotate-0 transition-transform duration-500">
-              {/* Cutout Hole */}
-              <div className="absolute -top-3 left-1/2 w-16 h-6 bg-gray-900 rounded-t-xl transform -translate-x-1/2 flex justify-center items-center">
-                <div className="w-8 h-2 bg-black/30 rounded-full shadow-inner"></div>
+            <h3 className="text-3xl font-bold text-white mb-6">Hi, I'm Adarsh.</h3>
+            <p className="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl">
+              I specialize in Web & App Development, Digital Marketing, and Social Media Strategy. 
+              My mission is to help brands navigate the digital landscape with robust technology and compelling marketing campaigns.
+            </p>
+
+            <div className="flex items-center gap-4 text-sm font-medium text-gray-300">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                <MapPin className="w-4 h-4 text-cyan-400" />
+                Vijay Nagar, Indore
               </div>
-              {/* Image Container */}
-              <div className="w-full aspect-[3/4] overflow-hidden rounded-xl bg-gray-800 border-2 border-transparent">
-                <img 
-                  src="/about-character.jpg" 
-                  alt="Profile" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <a href="#contact" className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                <Mail className="w-4 h-4 text-purple-400" />
+                Get in touch
+              </a>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Profile Photo Card */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="glass-card rounded-[2rem] p-2 relative overflow-hidden border-white/5 group h-[350px] md:h-auto"
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 rounded-[2rem]" />
+            <img 
+              src="/about-character.jpg" 
+              alt="Adarsh" 
+              className="w-full h-full object-cover rounded-[1.8rem] filter grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+            />
+            <div className="absolute bottom-6 left-6 z-20">
+              <p className="text-white font-bold text-xl">Digital Strategist</p>
+              <p className="text-cyan-400 text-sm font-medium uppercase tracking-wider">Since 2020</p>
+            </div>
+          </motion.div>
+
+          {/* AI Tools & Tech Stack */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="md:col-span-2 glass-card rounded-[2rem] p-8 relative overflow-hidden border-white/5"
+          >
+            <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-wider text-sm">Tech Stack & AI Tools</h3>
+            <div className="flex flex-wrap gap-4">
+              {[
+                { name: 'ChatGPT', icon: SiOpenai, color: 'hover:text-emerald-400', border: 'hover:border-emerald-400/50' },
+                { name: 'Claude', icon: Brain, color: 'hover:text-amber-400', border: 'hover:border-amber-400/50' },
+                { name: 'Antigravity', icon: Rocket, color: 'hover:text-purple-400', border: 'hover:border-purple-400/50' },
+                { name: 'Arena', icon: Swords, color: 'hover:text-cyan-400', border: 'hover:border-cyan-400/50' },
+                { name: 'Codex', icon: Code, color: 'hover:text-blue-400', border: 'hover:border-blue-400/50' },
+              ].map((tool, i) => (
+                <div key={i} className={`flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/10 transition-all duration-300 cursor-default ${tool.color} ${tool.border} group`}>
+                  <tool.icon className="w-5 h-5 text-gray-400 group-hover:text-inherit transition-colors" />
+                  <span className="font-semibold text-gray-300 group-hover:text-white transition-colors">{tool.name}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Social Links Card */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="glass-card rounded-[2rem] p-8 relative overflow-hidden border-white/5 flex flex-col justify-between"
+          >
+            <h3 className="text-xl font-bold text-white mb-6 uppercase tracking-wider text-sm">Connect</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { name: 'Meta', icon: FaMeta, hover: 'hover:bg-blue-600/20 hover:text-blue-400' },
+                { name: 'Instagram', icon: FaInstagram, hover: 'hover:bg-pink-600/20 hover:text-pink-400' },
+                { name: 'Facebook', icon: FaFacebook, hover: 'hover:bg-blue-800/20 hover:text-blue-500' },
+                { name: 'Google', icon: FaGoogle, hover: 'hover:bg-red-600/20 hover:text-red-400' },
+              ].map((social, i) => (
+                <a 
+                  key={i}
+                  href="#" 
+                  className={`flex flex-col items-center justify-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 text-gray-400 transition-all duration-300 ${social.hover} group`}
+                >
+                  <social.icon className="w-6 h-6" />
+                  <span className="text-xs font-semibold uppercase">{social.name}</span>
+                </a>
+              ))}
+            </div>
+          </motion.div>
 
         </div>
-
-        {/* Right Side: Info Content */}
-        <div data-aos="fade-left" data-aos-delay="200" className="flex-1 text-white mt-8 md:mt-0 relative z-20">
-          
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">Hello!</h2>
-          <p className="text-lg font-bold mb-10 leading-relaxed max-w-3xl text-blue-50">
-            Hi, my name is <span className="text-blue-400 text-xl font-black mx-1 tracking-wide uppercase">Adarsh</span>, a passionate creator based in <span className="text-blue-400 font-black">Vijay Nagar, Indore</span>, specializing in Web &amp; App Development, Digital Marketing, and Social Media Handling.
-          </p>
-
-          <div className="flex flex-col gap-8">
-            {/* Social Media Row */}
-            <div>
-              <h3 className="text-white font-black text-xl mb-4 uppercase tracking-wider">Social Platforms</h3>
-              <div className="flex flex-wrap items-center gap-6">
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-black">
-                  <FaMeta className="w-6 h-6" /> <span className="font-bold text-sm">Meta</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-pink-600">
-                  <FaInstagram className="w-6 h-6" /> <span className="font-bold text-sm">Instagram</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-blue-800">
-                  <FaFacebook className="w-6 h-6" /> <span className="font-bold text-sm">Facebook</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-red-700">
-                  <FaGoogle className="w-6 h-6" /> <span className="font-bold text-sm">Google</span>
-                </div>
-              </div>
-            </div>
-
-            {/* AI Tools Row */}
-            <div>
-              <h3 className="text-white font-black text-xl mb-4 uppercase tracking-wider">AI Tools & Stack</h3>
-              <div className="flex flex-wrap items-center gap-6">
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-emerald-500">
-                  <SiOpenai className="w-6 h-6" /> <span className="font-bold text-sm">ChatGPT</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-amber-500">
-                  <Brain className="w-6 h-6" /> <span className="font-bold text-sm">Claude</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-purple-700">
-                  <Rocket className="w-6 h-6" /> <span className="font-bold text-sm">Antigravity</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-cyan-500">
-                  <Swords className="w-6 h-6" /> <span className="font-bold text-sm">Arena</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-blue-500">
-                  <Code className="w-6 h-6" /> <span className="font-bold text-sm">Codex</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-
-      {/* Torn paper divider at bottom */}
-      <div className="absolute bottom-0 left-0 w-full pointer-events-none z-30 transform translate-y-1">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-12 md:h-20 fill-white">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.62,189.5,99.8,242.79,81.82,282.88,63.6,321.39,56.44Z"></path>
-        </svg>
-      </div>
-
-      {/* Decorative stars */}
-      <div className="absolute top-10 right-10 md:right-20 text-white opacity-10 animate-pulse">
-        <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg>
-      </div>
-      <div className="absolute bottom-32 left-4 md:left-20 text-white opacity-10 animate-pulse" style={{ animationDelay: '1s' }}>
-        <svg className="w-20 h-20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg>
       </div>
     </section>
   );

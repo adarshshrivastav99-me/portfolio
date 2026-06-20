@@ -1,126 +1,118 @@
-import React, { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import 'aos/dist/aos.css';
-import { LayoutGrid, TrendingUp, ThumbsUp, MessageCircle, LineChart, Bot } from 'lucide-react';
-
-
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Sparkles, TrendingUp, Users, Target } from 'lucide-react';
 
 const Hero = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-out'
-    });
-  }, []);
-
   return (
-    <section id="home" className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#0b1021] via-[#161a33] to-[#281a3a] flex items-center">
+    <section id="home" className="relative w-full min-h-screen bg-mesh flex items-center justify-center overflow-hidden">
       
-      {/* Dynamic Background Elements */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] pointer-events-none" />
-      
-      {/* Character Image (positioned to the right) */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none flex justify-end items-center">
-        <div className="relative w-full md:w-[60%] lg:w-[50%] h-[90%] flex justify-center items-center mr-0 lg:mr-10">
-          <img 
-            src="/hero-character-new.jpg" 
-            alt="Digital Marketer Hero" 
-            className="w-full h-full object-cover"
-            style={{ 
-              WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 100%)',
-              maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 100%)'
-            }}
-          />
-        </div>
-      </div>
+      {/* Abstract Glowing Orbs */}
+      <div className="absolute top-[20%] left-[10%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-purple-600/20 rounded-full blur-[100px] mix-blend-screen animate-float pointer-events-none" />
+      <div className="absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] max-w-[400px] max-h-[400px] bg-cyan-500/20 rounded-full blur-[100px] mix-blend-screen animate-float pointer-events-none" style={{ animationDelay: '2s' }} />
 
-      {/* Content Container */}
-      <div className="relative z-20 px-6 pt-20 md:pt-0 md:px-12 max-w-7xl mx-auto flex flex-col justify-center items-start text-left w-full h-full pointer-events-none">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-12 pt-20">
         
-        {/* Left Side: Text and Buttons */}
-        <div className="flex flex-col items-start text-left max-w-[600px] w-full">
-          {/* Main Heading */}
-          <h1
-            data-aos="fade-up"
-            className="text-white text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-[1.1] tracking-tight font-sans uppercase"
-            style={{ textShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+        {/* Left Content */}
+        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 border-white/10"
           >
-            Digital Marketer & <br /> Growth Strategist
-          </h1>
+            <Sparkles className="w-4 h-4 text-cyan-400" />
+            <span className="text-sm font-medium tracking-wide text-gray-300 uppercase">Available for new projects</span>
+          </motion.div>
 
-          {/* Subheading */}
-          <p
-            data-aos="fade-up"
-            data-aos-delay="200"
-            className="text-blue-100/80 text-lg md:text-xl font-medium mb-10 max-w-[500px] leading-relaxed"
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl md:text-7xl lg:text-[5.5rem] font-black leading-[1.05] tracking-tight mb-6"
           >
-            I Help Brands Generate Leads, Increase Revenue &amp; Scale Through Data-Driven Digital Marketing.
-          </p>
+            Elevating <br className="hidden lg:block" />
+            <span className="text-gradient">Digital</span> Experiences.
+          </motion.h1>
 
-          {/* Buttons — re-enable pointer events for clicks */}
-          <div
-            data-aos="fade-up"
-            data-aos-delay="400"
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full pointer-events-auto mb-16"
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg md:text-xl text-gray-400 max-w-xl mb-10 font-light leading-relaxed"
           >
-            {/* Primary Button */}
-            <a
+            I craft data-driven digital strategies and premium web applications that help ambitious brands scale, engage, and dominate their market.
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center lg:justify-start"
+          >
+            <a 
               href="#projects"
-              onClick={e => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }}
-              className="px-8 py-3.5 text-sm md:text-base rounded-full bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 transition-all duration-300 backdrop-blur-md shadow-lg"
+              className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95 flex items-center gap-2 w-full sm:w-auto justify-center"
             >
-              View Portfolio
+              <span className="relative z-10">Explore Work</span>
+              <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-gray-200 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
             </a>
-
-            {/* Secondary Button */}
-            <a
+            
+            <a 
               href="#contact"
-              onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-              className="px-8 py-3.5 text-sm md:text-base rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-bold hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(168,85,247,0.5)] border border-white/20 relative overflow-hidden group"
+              className="px-8 py-4 rounded-full glass border border-white/10 text-white font-medium hover:bg-white/5 transition-colors w-full sm:w-auto justify-center flex text-center"
             >
-              <span className="relative z-10">Let's Work Together</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              Start a Project
             </a>
-          </div>
+          </motion.div>
 
-          {/* Stats Row */}
-          <div 
-            data-aos="fade-up"
-            data-aos-delay="600"
-            className="flex flex-row flex-wrap items-center gap-8 md:gap-12 w-full border-t border-white/10 pt-8"
+          {/* Metrics */}
+          <motion.div 
+            initial={{ opacity: 0, borderTopColor: 'transparent' }}
+            animate={{ opacity: 1, borderTopColor: 'rgba(255,255,255,0.1)' }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="mt-16 pt-8 border-t border-white/10 w-full flex flex-wrap justify-center lg:justify-start gap-8 md:gap-16"
           >
-            {/* Stat 1 */}
-            <div className="flex items-center gap-3">
-              <LayoutGrid className="text-blue-400 w-8 h-8" />
-              <div className="flex flex-col">
-                <span className="text-white font-black text-2xl leading-none">50+</span>
-                <span className="text-white/50 text-xs font-semibold uppercase tracking-wider mt-1">Projects</span>
+            {[
+              { label: 'Successful Projects', value: '50+', icon: Target, color: 'text-cyan-400' },
+              { label: 'Leads Generated', value: '100K+', icon: TrendingUp, color: 'text-purple-400' },
+              { label: 'Client Satisfaction', value: '99%', icon: Users, color: 'text-emerald-400' },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center gap-4">
+                <div className={`w-12 h-12 rounded-2xl glass flex items-center justify-center ${stat.color}`}>
+                  <stat.icon className="w-6 h-6" />
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-2xl font-black text-white">{stat.value}</span>
+                  <span className="text-xs text-gray-500 uppercase tracking-widest font-semibold">{stat.label}</span>
+                </div>
               </div>
-            </div>
-
-            {/* Stat 2 */}
-            <div className="flex items-center gap-3">
-              <TrendingUp className="text-cyan-400 w-8 h-8" />
-              <div className="flex flex-col">
-                <span className="text-white font-black text-2xl leading-none">100K+</span>
-                <span className="text-white/50 text-xs font-semibold uppercase tracking-wider mt-1">Leads Generated</span>
-              </div>
-            </div>
-
-            {/* Stat 3 */}
-            <div className="flex items-center gap-3">
-              <ThumbsUp className="text-purple-400 w-8 h-8" />
-              <div className="flex flex-col">
-                <span className="text-white font-black text-2xl leading-none">95%</span>
-                <span className="text-white/50 text-xs font-semibold uppercase tracking-wider mt-1">Client Satisfaction</span>
-              </div>
-            </div>
-          </div>
+            ))}
+          </motion.div>
 
         </div>
+
+        {/* Right Content / Visual */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="flex-1 w-full relative hidden lg:flex justify-end"
+        >
+          {/* Abstract 3D/Visual Container */}
+          <div className="relative w-[500px] h-[600px] glass-card rounded-[2.5rem] overflow-hidden p-2 group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <img 
+              src="/hero-character-new.jpg" 
+              alt="Digital Marketer Hero" 
+              className="w-full h-full object-cover rounded-[2rem] grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
+            />
+            {/* Overlay Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent rounded-[2rem]" />
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

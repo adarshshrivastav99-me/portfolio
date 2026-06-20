@@ -1,139 +1,164 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Mail, Phone, MapPin, CheckCircle } from 'lucide-react';
 
 const Contact = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-  
-  // Parallax translation for the big text
-  const y = useTransform(scrollYProgress, [0, 1], ["-20%", "30%"]);
+  const [formState, setFormState] = useState({ name: '', email: '', company: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    setFormState({ ...formState, [e.target.id]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const firstName = e.target.firstName.value;
-    const lastName = e.target.lastName.value;
-    const email = e.target.email.value;
-    const message = e.target.message.value;
-    
-    if (!firstName || !lastName || !email || !message) {
-      alert("Please fill in all details before sending.");
+    const { name, email, company, message } = formState;
+    if (!name || !email || !message) {
+      alert('Please fill in name, email and message.');
       return;
     }
-
-    const subject = encodeURIComponent(`Portfolio Contact from ${firstName} ${lastName}`);
-    const body = encodeURIComponent(`Name: ${firstName} ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`);
-    
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${name}${company ? ` @ ${company}` : ''}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\n\nMessage:\n${message}`);
     window.location.href = `mailto:adarshshrivastav99@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (
-    <section ref={ref} id="contact" className="bg-[#0a0a0a] w-full min-h-screen relative overflow-hidden flex items-end pt-32 pb-0 md:pb-0 border-t border-gray-900">
-      {/* Huge Background Text */}
-      <motion.div 
-        style={{ y }}
-        className="absolute top-0 left-0 w-full h-full flex flex-col justify-start items-center overflow-hidden pointer-events-none z-0 pt-16 md:pt-12"
-      >
-        <h1 
-          className="text-[25vw] leading-[0.75] font-black text-white uppercase tracking-tighter select-none scale-y-[1.6] origin-top"
-          style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
-        >
-          Contact
-        </h1>
-      </motion.div>
+    <section id="contact" className="bg-[#09090b] py-32 px-6 md:px-12 w-full relative overflow-hidden">
+      {/* Glowing orb */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Form Card Overlay */}
-      <div className="relative z-10 w-full flex justify-end items-end">
-        <div 
-          data-aos="fade-up"
-          className="bg-gradient-to-br from-[#0b1021] via-[#161a33] to-[#281a3a] w-full md:w-[85%] lg:w-[75%] p-8 md:p-16 text-white flex flex-col justify-between"
-        >
-          <div className="text-xs font-bold tracking-[0.2em] mb-12 md:mb-20 uppercase opacity-90">
-            Reach Us
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+          {/* Left Side */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6"
+            >
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span className="text-sm font-medium tracking-wide text-gray-300 uppercase">Contact</span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-8"
+            >
+              Let's Build <br />
+              Something <br />
+              <span className="text-gradient">Extraordinary.</span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-gray-400 text-lg leading-relaxed mb-12 max-w-md"
+            >
+              Whether you have a project in mind or just want to explore possibilities — I'd love to hear from you.
+            </motion.p>
+
+            {/* Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col gap-5"
+            >
+              {[
+                { icon: Mail, label: 'Email', value: 'adarshshrivastav99@gmail.com' },
+                { icon: MapPin, label: 'Location', value: 'Vijay Nagar, Indore, India' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 rounded-2xl glass flex items-center justify-center text-cyan-400 shrink-0">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold">{item.label}</p>
+                    <p className="text-white font-medium mt-0.5">{item.value}</p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-12 md:gap-16 w-full">
-            <div className="flex flex-col md:flex-row gap-12 md:gap-20 w-full">
-              {/* Left Column */}
-              <div className="flex-1 flex flex-col gap-10">
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    id="firstName" 
-                    placeholder="First Name" 
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
-                  />
-                </div>
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    id="lastName" 
-                    placeholder="Last Name" 
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
-                  />
-                </div>
-                <div className="relative">
-                  <input 
-                    type="email" 
-                    id="email" 
-                    placeholder="Email" 
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
-                  />
-                </div>
-              </div>
+          {/* Right Side: Form */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="glass-card rounded-[2rem] p-8 md:p-10 border border-white/5">
+              <h3 className="text-xl font-bold text-white mb-8">Send a Message</h3>
 
-              {/* Right Column */}
-              <div className="flex-1 flex flex-col">
-                <div className="relative h-full flex flex-col">
-                  <textarea 
-                    id="message" 
-                    placeholder="Type your message here" 
-                    className="w-full h-full min-h-[120px] bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium resize-none rounded-none"
-                  ></textarea>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="name" className="text-xs text-gray-400 uppercase tracking-widest font-semibold">Full Name *</label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={formState.name}
+                      onChange={handleChange}
+                      placeholder="John Doe"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-cyan-400/50 focus:bg-white/10 transition-all"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="email" className="text-xs text-gray-400 uppercase tracking-widest font-semibold">Email Address *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={formState.email}
+                      onChange={handleChange}
+                      placeholder="john@company.com"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-cyan-400/50 focus:bg-white/10 transition-all"
+                    />
+                  </div>
                 </div>
-              </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="company" className="text-xs text-gray-400 uppercase tracking-widest font-semibold">Company / Brand</label>
+                  <input
+                    type="text"
+                    id="company"
+                    value={formState.company}
+                    onChange={handleChange}
+                    placeholder="Your Company Name"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-cyan-400/50 focus:bg-white/10 transition-all"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="message" className="text-xs text-gray-400 uppercase tracking-widest font-semibold">Tell Me About Your Project *</label>
+                  <textarea
+                    id="message"
+                    value={formState.message}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder="Hi Adarsh, I'd like to work on..."
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-cyan-400/50 focus:bg-white/10 transition-all resize-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="group w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-gray-100 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_30px_rgba(255,255,255,0.15)]"
+                >
+                  Send Message
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </form>
             </div>
-
-            {/* Bottom Section */}
-            <div className="flex flex-col md:flex-row gap-12 mt-4">
-              {/* Left text */}
-              <div className="flex-1 flex items-start gap-4 text-sm font-medium text-white/90">
-                <input 
-                  type="checkbox" 
-                  id="permission" 
-                  className="mt-1 w-4 h-4 rounded-sm border-white/40 bg-transparent text-white focus:ring-white focus:ring-offset-0 focus:ring-offset-transparent cursor-pointer" 
-                  style={{ accentColor: "white" }}
-                />
-                <label htmlFor="permission" className="cursor-pointer max-w-[280px] leading-snug">
-                  I give permission to contact me at this email address.
-                </label>
-              </div>
-
-              {/* Right text & button */}
-              <div className="flex-1 flex flex-col gap-8 text-xs text-white/70 font-medium">
-                <p className="leading-relaxed max-w-[400px]">
-                  This site is protected by reCAPTCHA and the Google <a href="#" className="underline hover:text-white transition-colors">Privacy Policy</a> and <a href="#" className="underline hover:text-white transition-colors">Terms of Service</a> apply.
-                </p>
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6">
-                  <p className="max-w-[250px] leading-relaxed">
-                    For information on how to unsubscribe, please review our <a href="#" className="underline hover:text-white transition-colors">privacy policy</a>.
-                  </p>
-                  
-                  <button 
-                    type="submit" 
-                    className="px-8 py-3 rounded-full border border-white/40 text-white font-bold flex items-center justify-center gap-3 hover:bg-white hover:text-[#0b1021] transition-all duration-300 group whitespace-nowrap self-start sm:self-auto"
-                  >
-                    Send
-                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
+          </motion.div>
 
         </div>
       </div>

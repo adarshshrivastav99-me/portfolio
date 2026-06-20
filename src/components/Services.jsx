@@ -1,233 +1,158 @@
-import React, { useRef, useState } from 'react';
-import { motion, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
+import {
+  Megaphone, BarChart3, Globe, Smartphone, Bot, Palette,
+  ArrowUpRight
+} from 'lucide-react';
 
-const TagCard = ({ number, title, text, className, aosDelay, aosType, pathLength, containerRef }) => {
-  const ref = useRef(null);
-  const [isActive, setIsActive] = useState(false);
+const services = [
+  {
+    icon: Megaphone,
+    title: 'Performance Marketing',
+    description: 'Data-driven ad campaigns across Meta, Google & more — engineered for maximum ROI and scalable lead generation.',
+    tags: ['Meta Ads', 'Google Ads', 'Retargeting'],
+    color: 'from-cyan-500/20 to-transparent',
+    accent: 'text-cyan-400',
+    border: 'hover:border-cyan-400/30',
+  },
+  {
+    icon: BarChart3,
+    title: 'Growth Strategy',
+    description: 'End-to-end growth roadmaps covering SEO, content, email, and analytics to systematically scale your brand\'s digital presence.',
+    tags: ['SEO', 'Email Marketing', 'Analytics'],
+    color: 'from-purple-500/20 to-transparent',
+    accent: 'text-purple-400',
+    border: 'hover:border-purple-400/30',
+  },
+  {
+    icon: Globe,
+    title: 'Web Development',
+    description: 'High-performance websites and web apps built with React & Node.js — lightning fast, responsive, and conversion-optimized.',
+    tags: ['React', 'Node.js', 'Vite'],
+    color: 'from-emerald-500/20 to-transparent',
+    accent: 'text-emerald-400',
+    border: 'hover:border-emerald-400/30',
+  },
+  {
+    icon: Smartphone,
+    title: 'Social Media Management',
+    description: 'Full-service social media strategy, content creation, scheduling, and community management for consistent brand growth.',
+    tags: ['Instagram', 'Facebook', 'Content'],
+    color: 'from-pink-500/20 to-transparent',
+    accent: 'text-pink-400',
+    border: 'hover:border-pink-400/30',
+  },
+  {
+    icon: Bot,
+    title: 'AI-Powered Campaigns',
+    description: 'Leveraging cutting-edge AI tools to automate, personalize, and supercharge your marketing funnels at scale.',
+    tags: ['ChatGPT', 'Automation', 'Personalization'],
+    color: 'from-amber-500/20 to-transparent',
+    accent: 'text-amber-400',
+    border: 'hover:border-amber-400/30',
+  },
+  {
+    icon: Palette,
+    title: 'Brand Identity & Design',
+    description: 'Crafting compelling brand identities — from logo and visual systems to tone of voice — that set you apart from the competition.',
+    tags: ['Branding', 'UI/UX', 'Design Systems'],
+    color: 'from-sky-500/20 to-transparent',
+    accent: 'text-sky-400',
+    border: 'hover:border-sky-400/30',
+  },
+];
 
-  useMotionValueEvent(pathLength, "change", (latest) => {
-    if (!ref.current || !containerRef.current) return;
-    
-    const cardRect = ref.current.getBoundingClientRect();
-    const containerRect = containerRef.current.getBoundingClientRect();
-    
-    const cardTopRelativeToContainer = cardRect.top - containerRect.top;
-    const containerHeight = containerRect.height;
-    
-    // Trigger when the line tip is 50px into the card
-    const triggerY = cardTopRelativeToContainer + 50;
-    const lineTipY = latest * containerHeight;
-    
-    if (lineTipY >= triggerY && !isActive) {
-      setIsActive(true);
-    } else if (lineTipY < triggerY && isActive) {
-      setIsActive(false);
-    }
-  });
-
-  return (
-    <div 
-      ref={ref}
-      data-aos={aosType || "fade-up"} 
-      data-aos-delay={aosDelay}
-      className={`w-72 sm:w-80 rounded-[2rem] p-2 relative flex flex-col items-center hover:scale-[1.02] transition-all duration-700 z-10 ${className} ${
-        isActive ? 'bg-[#ff2a2a] border-red-400 shadow-[0_20px_50px_rgba(255,42,42,0.4)]' : 'bg-white border border-gray-200 shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)]'
-      }`}
-    >
-      {/* The hole punch */}
-      <div className="w-5 h-5 bg-gradient-to-br from-gray-300 to-gray-100 rounded-full shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] absolute top-4 border border-gray-300 z-10 flex items-center justify-center">
-        <div className="w-2 h-2 bg-gray-800 rounded-full opacity-20"></div>
-      </div>
-      
-      {/* Inner container */}
-      <div className={`w-full h-full rounded-[1.5rem] mt-8 p-8 flex flex-col min-h-[220px] transition-colors duration-700 ${
-        isActive ? 'bg-red-700/50' : 'bg-[#f4f4f4]'
-      }`}>
-        <span className={`text-xl font-bold mb-2 font-serif italic transition-colors duration-700 ${
-          isActive ? 'text-red-200' : 'text-gray-400'
-        }`}>{number}</span>
-        
-        <h3 className={`text-2xl font-black mb-3 tracking-tight transition-colors duration-700 ${
-          isActive ? 'text-white' : 'text-gray-900'
-        }`}>{title}</h3>
-        
-        <p className={`text-sm leading-relaxed font-medium transition-colors duration-700 ${
-          isActive ? 'text-red-100' : 'text-gray-500'
-        }`}>
-          {text}
-        </p>
-      </div>
-    </div>
-  );
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i) => ({
+    opacity: 1, y: 0,
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+  })
 };
 
 const Services = () => {
-  const containerRef = useRef(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  });
-
-  const pathLength = useSpring(scrollYProgress, { stiffness: 60, damping: 20, restDelta: 0.001 });
-
   return (
-    <section 
-      id="skills"
-      ref={containerRef}
-      className="bg-white pt-24 pb-32 px-6 md:px-12 w-full relative overflow-hidden font-sans bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:80px_80px]"
-    >
-      <div className="max-w-6xl mx-auto relative md:h-[1350px]">
-        
-        {/* Header Content */}
-        <div data-aos="fade-up" className="md:absolute top-10 left-0 md:w-[450px] z-20 mb-16 md:mb-0">
-          <div className="inline-block border border-gray-300 rounded-full px-5 py-1.5 text-sm text-gray-600 font-bold mb-8 shadow-sm bg-white">
-            How we work
+    <section id="skills" className="bg-[#09090b] py-32 px-6 md:px-12 w-full relative overflow-hidden">
+      {/* Subtle background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6"
+            >
+              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+              <span className="text-sm font-medium tracking-wide text-gray-300 uppercase">Services</span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight"
+            >
+              What I Do <br />
+              <span className="text-gradient">Exceptionally Well.</span>
+            </motion.h2>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-[1.1] mb-6 tracking-tight relative">
-            Let us show you how we drive your brand to new heights
-            {/* Hand-drawn arrow */}
-            <svg className="absolute -bottom-10 right-10 w-12 h-12 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" className="hidden" />
-              <path d="M4 4 Q 10 10 15 15 M 15 15 L 10 15 M 15 15 L 15 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </h2>
-          <p className="text-gray-500 text-base md:text-lg max-w-sm font-medium leading-relaxed">
-            We follow a structured, creative, and highly technical approach to turn your ideas into robust full-stack applications.
-          </p>
-        </div>
 
-        {/* Desktop SVG Animated Dashed Line */}
-        <svg 
-          className="hidden md:block absolute top-0 left-0 w-full h-[1350px] pointer-events-none z-0" 
-          viewBox="0 0 1000 1350" 
-          preserveAspectRatio="none"
-        >
-          {/* Faint background path (optional guide) */}
-          <path 
-            d="M 650,200 C 400,300 200,400 300,600 C 400,800 750,750 700,950 C 650,1150 400,1150 300,1200" 
-            fill="none" 
-            stroke="#cbd5e1" 
-            strokeWidth="2" 
-            strokeDasharray="8 10" 
-          />
-
-          {/* Mask to reveal the dashed path based on scroll */}
-          <mask id="path-mask">
-            <motion.path 
-              d="M 650,200 C 400,300 200,400 300,600 C 400,800 750,750 700,950 C 650,1150 400,1150 300,1200" 
-              fill="none" 
-              stroke="white" 
-              strokeWidth="20" 
-              style={{ pathLength }}
-            />
-          </mask>
-
-          {/* The actual dashed line that gets revealed */}
-          <path 
-            d="M 650,200 C 400,300 200,400 300,600 C 400,800 750,750 700,950 C 650,1150 400,1150 300,1200" 
-            fill="none" 
-            stroke="black" 
-            strokeWidth="2" 
-            strokeDasharray="8 10" 
-            mask="url(#path-mask)"
-            className="drop-shadow-sm"
-          />
-        </svg>
-
-        {/* Mobile Animated Vertical Dashed Line */}
-        <svg 
-          className="md:hidden absolute top-0 left-[50%] -translate-x-1/2 w-4 h-[100%] pointer-events-none z-0" 
-          viewBox="0 0 4 100" 
-          preserveAspectRatio="none"
-        >
-          <path 
-            d="M 2,0 L 2,100" 
-            fill="none" 
-            stroke="#cbd5e1" 
-            strokeWidth="4" 
-            strokeDasharray="4 6" 
-            vectorEffect="non-scaling-stroke"
-          />
-          <mask id="path-mask-mobile">
-            <motion.path 
-              d="M 2,0 L 2,100" 
-              fill="none" 
-              stroke="white" 
-              strokeWidth="4" 
-              style={{ pathLength }}
-              vectorEffect="non-scaling-stroke"
-            />
-          </mask>
-          <path 
-            d="M 2,0 L 2,100" 
-            fill="none" 
-            stroke="black" 
-            strokeWidth="4" 
-            strokeDasharray="4 6" 
-            mask="url(#path-mask-mobile)"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-
-        {/* Cards Container */}
-        <div className="flex flex-col gap-8 md:gap-12 items-center md:block relative z-10 w-full pt-4 md:pt-0 pb-12 md:pb-0">
-          
-          <TagCard 
-            number="01"
-            title="Define"
-            text="We start by understanding your goals, user requirements, and technical constraints to lay a rock-solid foundation for the project."
-            className="md:absolute md:top-[10px] md:right-[5%] lg:right-[10%] rotate-2 md:rotate-6"
-            aosType="fade-left"
-            aosDelay="100"
-            pathLength={pathLength}
-            containerRef={containerRef}
-          />
-
-          <TagCard 
-            number="02"
-            title="Design"
-            text="Creating intuitive, pixel-perfect user interfaces and wireframes that guarantee an engaging and accessible user experience."
-            className="md:absolute md:top-[450px] md:left-[5%] lg:left-[10%] -rotate-2 md:-rotate-6"
-            aosType="fade-right"
-            aosDelay="200"
-            pathLength={pathLength}
-            containerRef={containerRef}
-          />
-
-          <TagCard 
-            number="03"
-            title="Build"
-            text="Developing scalable frontend architectures and secure backend systems using the latest modern tech stack."
-            className="md:absolute md:top-[700px] md:right-[5%] lg:right-[15%] rotate-1 md:rotate-3"
-            aosType="fade-left"
-            aosDelay="300"
-            pathLength={pathLength}
-            containerRef={containerRef}
-          />
-
-          <TagCard 
-            number="04"
-            title="Launch"
-            text="Rigorous testing, optimization, and seamless deployment to cloud infrastructure, followed by ongoing support."
-            className="md:absolute md:top-[1050px] md:left-[15%] lg:left-[25%] -rotate-1 md:-rotate-3"
-            aosType="fade-right"
-            aosDelay="400"
-            pathLength={pathLength}
-            containerRef={containerRef}
-          />
-
-          {/* Hand-drawn end text */}
-          <div 
-            data-aos="fade-in" 
-            data-aos-delay="600"
-            className="hidden md:block absolute top-[1250px] left-[60%] font-['Caveat',cursive] text-3xl text-gray-600 rotate-6"
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-gray-400 text-lg max-w-sm leading-relaxed md:text-right"
           >
-            Ready to be delivered!
-          </div>
-
+            Every service is delivered with precision, creativity, and a relentless focus on results.
+          </motion.p>
         </div>
 
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, i) => (
+            <motion.div
+              key={i}
+              custom={i}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className={`group relative glass-card rounded-[2rem] p-8 overflow-hidden border border-white/5 transition-all duration-500 ${service.border} cursor-default`}
+            >
+              {/* Gradient accent */}
+              <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl ${service.color} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
+
+              {/* Icon */}
+              <div className={`w-14 h-14 rounded-2xl glass flex items-center justify-center mb-6 ${service.accent}`}>
+                <service.icon className="w-7 h-7" />
+              </div>
+
+              {/* Content */}
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-white transition-colors">{service.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed mb-6">{service.description}</p>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {service.tags.map((tag, j) => (
+                  <span key={j} className="text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-500 group-hover:text-gray-300 transition-colors">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Arrow */}
+              <div className={`absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center border border-white/10 text-gray-600 group-hover:${service.accent} group-hover:border-current opacity-0 group-hover:opacity-100 transition-all duration-300`}>
+                <ArrowUpRight className="w-5 h-5" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
