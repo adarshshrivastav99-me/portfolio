@@ -1,134 +1,125 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-// Adjusted import path for the video
-import heroVideo from '../assets/hero video/Developer_introduces_self_and_sk…_202606051918.mp4';
+import 'aos/dist/aos.css';
+import { LayoutGrid, TrendingUp, ThumbsUp, MessageCircle, LineChart, Bot } from 'lucide-react';
+
+
 
 const Hero = () => {
-  const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true,
       easing: 'ease-out'
     });
-    // Video does NOT autoplay anymore
   }, []);
 
-  const toggleVideo = (e) => {
-    e.stopPropagation();
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
-
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-black">
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        loop
-        muted={isMuted}
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-      >
-        <source src={heroVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
-      {/* Content Container */}
-      <div className="absolute inset-0 z-20 px-6 pb-20 md:pb-[8%] md:px-12 max-w-7xl mx-auto flex flex-col md:flex-row justify-end md:justify-between items-start md:items-end text-left w-full">
-        
-        {/* Left Side: Text and Buttons */}
-        <div className="flex flex-col items-start text-left max-w-2xl w-full">
-          {/* Main Heading */}
-          <h1 
-            data-aos="fade-up"
-            className="text-white text-3xl md:text-5xl font-bold mb-4 tracking-tight"
-          >
-            Hi, I’m a <br /> <span className="text-transparent [-webkit-text-stroke:1.5px_black]">Full Stack Developer</span>
-          </h1>
-
-          {/* Subheading */}
-          <p 
-            data-aos="fade-up"
-            data-aos-delay="200"
-            className="text-white text-sm md:text-lg font-semibold mb-8 max-w-md drop-shadow-md"
-          >
-            I build fast, scalable and modern web applications using React, Node.js and Tailwind CSS.
-          </p>
-
-          {/* Buttons */}
-          <div 
-            data-aos="fade-up"
-            data-aos-delay="400"
-            className="flex flex-row flex-wrap items-center gap-3 w-full"
-          >
-            {/* Primary Button */}
-            <button className="px-4 py-2 md:px-6 md:py-2 text-xs md:text-base rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 shadow-md">
-              View My Work
-            </button>
-            
-            {/* Secondary Button - Glassmorphism style */}
-            <button className="px-4 py-2 md:px-6 md:py-2 text-xs md:text-base rounded-full bg-black/40 border border-white text-white font-semibold hover:bg-black/60 transition-all duration-300 backdrop-blur-md">
-              Contact Me
-            </button>
-          </div>
-        </div>
-
-        {/* Right Side: Play Video Button */}
-        <div 
-          data-aos="zoom-in"
-          data-aos-delay="600"
-          className="mt-8 md:mt-0 flex flex-row md:flex-col items-center gap-2 md:gap-3 cursor-pointer group self-start md:self-auto"
-          onClick={toggleVideo}
-        >
-          <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border border-white/30 bg-black/20 backdrop-blur-md flex justify-center items-center group-hover:scale-110 group-hover:bg-[#ff2a2a] transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_40px_rgba(255,42,42,0.6)]">
-            {!isPlaying || isMuted ? (
-              // Play Icon
-              <svg className="w-5 h-5 md:w-8 md:h-8 text-white ml-0.5 md:ml-1" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            ) : (
-              // Pause Icon
-              <svg className="w-5 h-5 md:w-8 md:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-              </svg>
-            )}
-          </div>
-          <span className="text-white text-[10px] md:text-xs font-bold tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity">
-            {!isPlaying || isMuted ? "Play Reel" : "Pause"}
-          </span>
+    <section id="home" className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#0b1021] via-[#161a33] to-[#281a3a] flex items-center">
+      
+      {/* Dynamic Background Elements */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] pointer-events-none" />
+      
+      {/* Character Image (positioned to the right) */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none flex justify-end items-center">
+        <div className="relative w-full md:w-[60%] lg:w-[50%] h-[90%] flex justify-center items-center mr-0 lg:mr-10">
+          <img 
+            src="/hero-character-new.jpg" 
+            alt="Digital Marketer Hero" 
+            className="w-full h-full object-cover"
+            style={{ 
+              WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 100%)',
+              maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 100%)'
+            }}
+          />
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div 
-        data-aos="fade-up"
-        data-aos-delay="800"
-        className="hidden md:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 pointer-events-none"
-      >
-        <div className="animate-bounce">
-          <svg 
-            className="w-6 h-6 text-black drop-shadow-[0_1px_2px_rgba(255,255,255,0.6)]" 
-            fill="none" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="3" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
+      {/* Content Container */}
+      <div className="relative z-20 px-6 pt-20 md:pt-0 md:px-12 max-w-7xl mx-auto flex flex-col justify-center items-start text-left w-full h-full pointer-events-none">
+        
+        {/* Left Side: Text and Buttons */}
+        <div className="flex flex-col items-start text-left max-w-[600px] w-full">
+          {/* Main Heading */}
+          <h1
+            data-aos="fade-up"
+            className="text-white text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-[1.1] tracking-tight font-sans uppercase"
+            style={{ textShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
           >
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+            Digital Marketer & <br /> Growth Strategist
+          </h1>
+
+          {/* Subheading */}
+          <p
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-blue-100/80 text-lg md:text-xl font-medium mb-10 max-w-[500px] leading-relaxed"
+          >
+            I Help Brands Generate Leads, Increase Revenue &amp; Scale Through Data-Driven Digital Marketing.
+          </p>
+
+          {/* Buttons — re-enable pointer events for clicks */}
+          <div
+            data-aos="fade-up"
+            data-aos-delay="400"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full pointer-events-auto mb-16"
+          >
+            {/* Primary Button */}
+            <a
+              href="#projects"
+              onClick={e => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="px-8 py-3.5 text-sm md:text-base rounded-full bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 transition-all duration-300 backdrop-blur-md shadow-lg"
+            >
+              View Portfolio
+            </a>
+
+            {/* Secondary Button */}
+            <a
+              href="#contact"
+              onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="px-8 py-3.5 text-sm md:text-base rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-bold hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(168,85,247,0.5)] border border-white/20 relative overflow-hidden group"
+            >
+              <span className="relative z-10">Let's Work Together</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </a>
+          </div>
+
+          {/* Stats Row */}
+          <div 
+            data-aos="fade-up"
+            data-aos-delay="600"
+            className="flex flex-row flex-wrap items-center gap-8 md:gap-12 w-full border-t border-white/10 pt-8"
+          >
+            {/* Stat 1 */}
+            <div className="flex items-center gap-3">
+              <LayoutGrid className="text-blue-400 w-8 h-8" />
+              <div className="flex flex-col">
+                <span className="text-white font-black text-2xl leading-none">50+</span>
+                <span className="text-white/50 text-xs font-semibold uppercase tracking-wider mt-1">Projects</span>
+              </div>
+            </div>
+
+            {/* Stat 2 */}
+            <div className="flex items-center gap-3">
+              <TrendingUp className="text-cyan-400 w-8 h-8" />
+              <div className="flex flex-col">
+                <span className="text-white font-black text-2xl leading-none">100K+</span>
+                <span className="text-white/50 text-xs font-semibold uppercase tracking-wider mt-1">Leads Generated</span>
+              </div>
+            </div>
+
+            {/* Stat 3 */}
+            <div className="flex items-center gap-3">
+              <ThumbsUp className="text-purple-400 w-8 h-8" />
+              <div className="flex flex-col">
+                <span className="text-white font-black text-2xl leading-none">95%</span>
+                <span className="text-white/50 text-xs font-semibold uppercase tracking-wider mt-1">Client Satisfaction</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

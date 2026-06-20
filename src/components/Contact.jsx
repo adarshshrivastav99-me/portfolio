@@ -11,6 +11,24 @@ const Contact = () => {
   // Parallax translation for the big text
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "30%"]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const firstName = e.target.firstName.value;
+    const lastName = e.target.lastName.value;
+    const email = e.target.email.value;
+    const message = e.target.message.value;
+    
+    if (!firstName || !lastName || !email || !message) {
+      alert("Please fill in all details before sending.");
+      return;
+    }
+
+    const subject = encodeURIComponent(`Portfolio Contact from ${firstName} ${lastName}`);
+    const body = encodeURIComponent(`Name: ${firstName} ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`);
+    
+    window.location.href = `mailto:adarshshrivastav99@gmail.com?subject=${subject}&body=${body}`;
+  };
+
   return (
     <section ref={ref} id="contact" className="bg-[#0a0a0a] w-full min-h-screen relative overflow-hidden flex items-end pt-32 pb-0 md:pb-0 border-t border-gray-900">
       {/* Huge Background Text */}
@@ -30,13 +48,13 @@ const Contact = () => {
       <div className="relative z-10 w-full flex justify-end items-end">
         <div 
           data-aos="fade-up"
-          className="bg-[#ff2a2a] w-full md:w-[85%] lg:w-[75%] p-8 md:p-16 text-white flex flex-col justify-between"
+          className="bg-gradient-to-br from-[#0b1021] via-[#161a33] to-[#281a3a] w-full md:w-[85%] lg:w-[75%] p-8 md:p-16 text-white flex flex-col justify-between"
         >
           <div className="text-xs font-bold tracking-[0.2em] mb-12 md:mb-20 uppercase opacity-90">
             Reach Us
           </div>
 
-          <form className="flex flex-col gap-12 md:gap-16 w-full">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-12 md:gap-16 w-full">
             <div className="flex flex-col md:flex-row gap-12 md:gap-20 w-full">
               {/* Left Column */}
               <div className="flex-1 flex flex-col gap-10">
@@ -105,7 +123,7 @@ const Contact = () => {
                   
                   <button 
                     type="submit" 
-                    className="px-8 py-3 rounded-full border border-white/40 text-white font-bold flex items-center justify-center gap-3 hover:bg-white hover:text-[#ff2a2a] transition-all duration-300 group whitespace-nowrap self-start sm:self-auto"
+                    className="px-8 py-3 rounded-full border border-white/40 text-white font-bold flex items-center justify-center gap-3 hover:bg-white hover:text-[#0b1021] transition-all duration-300 group whitespace-nowrap self-start sm:self-auto"
                   >
                     Send
                     <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

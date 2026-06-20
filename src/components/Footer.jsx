@@ -26,7 +26,7 @@ const Footer = () => {
       {/* Middle Huge Text */}
       <div className="w-full flex justify-center items-center py-20 md:py-24 overflow-hidden">
         <h2 className="text-[18vw] md:text-[16vw] leading-none font-sans font-bold tracking-tighter lowercase select-none text-[#f4f4f4] w-full text-center">
-          leeshark
+          adarsh
         </h2>
       </div>
 
@@ -35,12 +35,12 @@ const Footer = () => {
         <div className="flex flex-col gap-6">
           <a href="#contact" className="underline hover:text-white transition-colors underline-offset-4 decoration-1 font-bold">Contact</a>
           <p className="text-white/60 font-mono text-[9px] md:text-[10px]">
-            &copy; {new Date().getFullYear()} Leeshark Studio | Built with React
+            &copy; {new Date().getFullYear()} Adarsh Studio | Built with React
           </p>
         </div>
         
         <div className="flex flex-col gap-1 md:items-center">
-          <a href="mailto:hello@leeshark.com" className="underline hover:text-white transition-colors underline-offset-4 decoration-1 lowercase">hello@leeshark.com</a>
+          <a href="mailto:adarshshrivastav99@gmail.com" className="underline hover:text-white transition-colors underline-offset-4 decoration-1 lowercase">adarshshrivastav99@gmail.com</a>
         </div>
         
         <div className="flex flex-col gap-1 md:items-end">

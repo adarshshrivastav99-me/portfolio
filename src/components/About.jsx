@@ -1,12 +1,10 @@
 import React from 'react';
-import stackImage from '../assets/about/image.png';
-import reactImage from '../assets/about/react.png';
-import nodeImage from '../assets/about/node.png';
-import mongoImage from '../assets/about/mongodb.png';
-
+import { FaMeta, FaInstagram, FaFacebook, FaGoogle } from 'react-icons/fa6';
+import { SiOpenai } from 'react-icons/si';
+import { Bot, Rocket, Code, Swords, Brain } from 'lucide-react';
 const About = () => {
   return (
-    <section className="bg-[#ff2a2a] pt-20 pb-40 px-6 md:px-12 w-full relative overflow-hidden font-sans">
+    <section id="about" className="bg-gradient-to-br from-[#0b1021] via-[#161a33] to-[#281a3a] pt-20 pb-40 px-6 md:px-12 w-full relative overflow-hidden font-sans">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start">
         
         {/* Left Side: ID Badge and Skills */}
@@ -27,7 +25,7 @@ const About = () => {
               {/* Image Container */}
               <div className="w-full aspect-[3/4] overflow-hidden rounded-xl bg-gray-800 border-2 border-transparent">
                 <img 
-                  src={stackImage} 
+                  src="/about-character.jpg" 
                   alt="Profile" 
                   className="w-full h-full object-cover"
                 />
@@ -40,32 +38,54 @@ const About = () => {
         {/* Right Side: Info Content */}
         <div data-aos="fade-left" data-aos-delay="200" className="flex-1 text-white mt-8 md:mt-0 relative z-20">
           
-          <h2 className="text-4xl md:text-5xl font-black text-black mb-4">Hello!</h2>
-          <p className="text-lg font-bold mb-12 leading-relaxed max-w-3xl text-red-50">
-            Hi, my name is <span className="text-black text-xl font-black mx-1 tracking-wide uppercase">Leeshark</span>, a passionate full-stack developer based in [Location], dedicated to crafting clean, functional, and highly scalable web applications.
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">Hello!</h2>
+          <p className="text-lg font-bold mb-10 leading-relaxed max-w-3xl text-blue-50">
+            Hi, my name is <span className="text-blue-400 text-xl font-black mx-1 tracking-wide uppercase">Adarsh</span>, a passionate creator based in <span className="text-blue-400 font-black">Vijay Nagar, Indore</span>, specializing in Web &amp; App Development, Digital Marketing, and Social Media Handling.
           </p>
 
-          {/* Horizontal Skills Row (Transparent & Large) */}
-          <div className="flex items-center gap-10 mt-8">
-            <img 
-              data-aos="zoom-in" data-aos-delay="300"
-              src={reactImage} 
-              alt="React" 
-              className="w-20 h-20 md:w-24 md:h-24 object-contain hover:scale-110 transition-transform duration-300 cursor-pointer drop-shadow-2xl" 
-            />
-            <img 
-              data-aos="zoom-in" data-aos-delay="450"
-              src={nodeImage} 
-              alt="Node.js" 
-              className="w-20 h-20 md:w-24 md:h-24 object-contain hover:scale-110 transition-transform duration-300 cursor-pointer drop-shadow-2xl" 
-            />
-            <img 
-              data-aos="zoom-in" data-aos-delay="600"
-              src={mongoImage} 
-              alt="MongoDB" 
-              className="w-20 h-20 md:w-24 md:h-24 object-contain hover:scale-110 transition-transform duration-300 cursor-pointer drop-shadow-2xl" 
-            />
+          <div className="flex flex-col gap-8">
+            {/* Social Media Row */}
+            <div>
+              <h3 className="text-white font-black text-xl mb-4 uppercase tracking-wider">Social Platforms</h3>
+              <div className="flex flex-wrap items-center gap-6">
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-black">
+                  <FaMeta className="w-6 h-6" /> <span className="font-bold text-sm">Meta</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-pink-600">
+                  <FaInstagram className="w-6 h-6" /> <span className="font-bold text-sm">Instagram</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-blue-800">
+                  <FaFacebook className="w-6 h-6" /> <span className="font-bold text-sm">Facebook</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-red-700">
+                  <FaGoogle className="w-6 h-6" /> <span className="font-bold text-sm">Google</span>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Tools Row */}
+            <div>
+              <h3 className="text-white font-black text-xl mb-4 uppercase tracking-wider">AI Tools & Stack</h3>
+              <div className="flex flex-wrap items-center gap-6">
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-emerald-500">
+                  <SiOpenai className="w-6 h-6" /> <span className="font-bold text-sm">ChatGPT</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-amber-500">
+                  <Brain className="w-6 h-6" /> <span className="font-bold text-sm">Claude</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-purple-700">
+                  <Rocket className="w-6 h-6" /> <span className="font-bold text-sm">Antigravity</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-cyan-500">
+                  <Swords className="w-6 h-6" /> <span className="font-bold text-sm">Arena</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/40 transition-colors cursor-pointer text-white hover:text-blue-500">
+                  <Code className="w-6 h-6" /> <span className="font-bold text-sm">Codex</span>
+                </div>
+              </div>
+            </div>
           </div>
+
 
         </div>
       </div>
@@ -78,10 +98,10 @@ const About = () => {
       </div>
 
       {/* Decorative stars */}
-      <div className="absolute top-10 right-10 md:right-20 text-black opacity-30 animate-pulse">
+      <div className="absolute top-10 right-10 md:right-20 text-white opacity-10 animate-pulse">
         <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg>
       </div>
-      <div className="absolute bottom-32 left-4 md:left-20 text-black opacity-30 animate-pulse" style={{ animationDelay: '1s' }}>
+      <div className="absolute bottom-32 left-4 md:left-20 text-white opacity-10 animate-pulse" style={{ animationDelay: '1s' }}>
         <svg className="w-20 h-20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg>
       </div>
     </section>
